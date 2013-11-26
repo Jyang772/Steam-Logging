@@ -44,9 +44,9 @@ int main(int argc, char **argv)
   //can't test it atm, so may not work
   void *temp;
   temp=malloc(3*sizeof(char));
-  ((char*)(void*)(&temp))=getc(fpro);
-  ((char*)(void*)(&temp+sizeof(char)))=getc(fpro);
-  ((char*)(void*)(&temp+(2*sizeof(char))))='\n';
+  ((char*)(&temp))=getc(fpro);
+  ((char*)(&temp+sizeof(char)))=getc(fpro);
+  ((char*)(&temp+(2*sizeof(char))))='\n';
   free(temp);
   //my verson of atoi.
   p=(cint(temp));
