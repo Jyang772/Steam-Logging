@@ -50,7 +50,7 @@ int main(int argc, char **argv)
   //my verson of atoi.
   p=(cint(temp));
 
-  struct *profile struct_profile[p];
+  struct struct_profile *profile[p];
 
   for(i=0;i<p;i++)
   {
