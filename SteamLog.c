@@ -1,5 +1,6 @@
 #define filename_profile "profiles.dat"
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
   research:
