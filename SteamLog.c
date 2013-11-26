@@ -45,9 +45,9 @@ int main(int argc, char **argv)
   //can't test it atm, so may not work
   void *temp;
   temp=malloc(3*sizeof(char));
-  ((char*)(&temp))=getc(fpro);
-  ((char*)(&temp+sizeof(char)))=getc(fpro);
-  ((char*)(&temp+(2*sizeof(char))))='\n';
+  ((char*)(&temp))=(char)getc(fpro);
+  ((char*)(&temp+sizeof(char)))=(char)getc(fpro);
+  ((char*)(&temp+(2*sizeof(char))))=(char)'\n';
   free(temp);
   //my verson of atoi.
   p=(cint(temp));
@@ -89,7 +89,13 @@ int main(int argc, char **argv)
       //read from stream
     }
   }
+  
   return 0;
+}
+
+void get_html(char* url)
+{
+  //write to stream
 }
 
 int cint(char* c)
@@ -112,9 +118,3 @@ int cint(char* c)
     i++;
   }
 }
-
-void get_html(char* url)
-{
-  //write to stream
-}
-
