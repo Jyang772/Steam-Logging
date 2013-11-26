@@ -45,12 +45,12 @@ int main(int argc, char **argv)
   //can't test it atm, so may not work
   void *temp;
   temp=malloc(3*sizeof(char));
-  ((char*)(&temp))=getc(fpro); //pointer mindfuck
-  ((char*)(&temp+sizeof(char)))=getc(fpro);
-  ((char*)(&temp+(2*sizeof(char))))='\n';
-  free(temp);
+  *(&temp+(0*sizeof(char)))=getc(fpro);
+  *(&temp+(1*sizeof(char)))=getc(fpro); //using as value (char*)*((&temp)+1*sizeof(char));
+  *(&temp+(2*sizeof(char)))=0x0;
   //my verson of atoi.
   p=(cint(temp));
+  free(temp);
 
   struct struct_profile *profile[p];
 
@@ -101,7 +101,7 @@ void get_html(char* url)
 int cint(char* c)
 {
   int i=0,j=0;
-  while(*(c+i)!='\n')
+  while(*(c+i)!=0x0)
   {
     switch(*(c+i))
     {
