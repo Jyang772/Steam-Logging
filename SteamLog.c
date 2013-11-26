@@ -42,7 +42,8 @@ int main(int argc, char **argv)
   FILE *fpro = fopen(filename_profile,"r");
   //my version of strcat, lol idk, what stdlib?
   //can't test it atm, so may not work
-  char *temp=malloc(3*sizeof(char));
+  char *temp;
+  temp=malloc(3*sizeof(char));
   ((char*)(void*)(&temp))=getc(fpro);
   ((char*)(void*)(&temp+sizeof(char)))=getc(fpro);
   ((char*)(void*)(&temp+(2*sizeof(char))))='\n';
@@ -64,16 +65,16 @@ int main(int argc, char **argv)
     c=getc(fpro);
     do
     {
-      profile[i]->*(name+j)=c;
+      *(profile[i]->name+j)=c;
       j++;
       c=getc(fpro);
-    }while(c!='\n'));
+    }while(c!='\n');
     //set url
     j=0;
     c=getc(fpro);
     do
     {
-      profile[i]->*(url+j)=c;
+      *(profile[i]->url+j)=c;
       j++;
       c=getc(fpro);
     }while(c!='\n');
