@@ -96,7 +96,7 @@ int cint(char* c)
   {
     switch(*(c+i))
     {
-      case 1: j=(1*i); break; 
+      case 1: j=(1*i); break;
       case 2: j=(2*i); break;
       case 3: j=(3*i); break;
       case 4: j=(4*i); break;
