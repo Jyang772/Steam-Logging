@@ -11,7 +11,7 @@
 
 struct profile;
 void get_html(char*);
-cint(char*);
+int cint(char*);
 
 struct struct_profile
 {
@@ -76,7 +76,7 @@ int main(int argc, char **argv)
       profile[i]->*(url+j)=c;
       j++;
       c=getc(fpro);
-    }while(c!='\n'));
+    }while(c!='\n');
   }
 
   while(0)
