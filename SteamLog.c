@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 /*
-  research for later:
+  research:
+  http://www.cs.swarthmore.edu/~newhall/unixhelp/C_files.html
   http://stackoverflow.com/questions/3481157/string-stream-in-c
   http://stackoverflow.com/questions/3382173/download-http-thru-sockets-c
 */
