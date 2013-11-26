@@ -42,9 +42,10 @@ int main(int argc, char **argv)
   FILE *fpro = fopen(filename_profile,r);
   //my version of strcat, lol idk, what stdlib?
   //can't test it atm, so may not work
-  char *temp=malloc(2*sizeof(char));
+  char *temp=malloc(3*sizeof(char));
   ((char*)(void*)(&temp))=getc(fpro);
   ((char*)(void*)(&temp+sizeof(char)))=getc(fpro);
+  ((char*)(void*)(&temp+(2*sizeof(char))))='\n';
   free(temp);
   //my verson of atoi.
   p=(cint(temp));
@@ -91,8 +92,8 @@ int main(int argc, char **argv)
 
 int cint(char* c)
 {
-  int i,j=0;
-  for(i=0;i<(sizeof(c)/sizeof(char));i++)
+  int i=0,j=0;
+  while(*(c+i)!='\n')
   {
     switch(*(c+i))
     {
@@ -106,6 +107,7 @@ int cint(char* c)
       case 8: j=(8*i); break;
       case 9: j=(9*i); break;
     }
+    i++;
   }
 }
 
