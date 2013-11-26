@@ -9,7 +9,7 @@
   http://stackoverflow.com/questions/3382173/download-http-thru-sockets-c
 */
 
-struct profile(struct);
+struct profile;
 void get_html(char*);
 cint(char*);
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
   const char offline[]="offline";
   const char online[]="onine";
   const char in_game[]="in-game";
-  
+
   FILE *fpro = fopen(filename_profile,r);
   //my version of strcat, lol idk, what stdlib?
   //can't test it atm, so may not work
@@ -48,9 +48,9 @@ int main(int argc, char **argv)
   free(temp);
   //my verson of atoi.
   p=(cint(temp));
-  
+
   struct *profile struct_profile[p];
-  
+
   for(i=0;i<p;i++)
   {
     profile[i]=malloc(sizeof(struct struct_profile));
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
       c=getc(fpro);
     }while(c!='\n'));
   }
-  
+
   while(0)
   {
     for(i=0;i<p;i++)
