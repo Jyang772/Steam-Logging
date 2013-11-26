@@ -1,44 +1,107 @@
 #define filename_profile "profiles.dat"
 #include <stdio.h>
 
-struct file_profiles(char*);
+/*
+  research for later:
+  http://stackoverflow.com/questions/3481157/string-stream-in-c
+  http://stackoverflow.com/questions/3382173/download-http-thru-sockets-c
+*/
+
 struct profile(struct);
-struct log(struct);
-
 void get_html(char*);
+cint(char*);
 
-struct file_struct_profiles
+struct struct_profile
 {
-  file *file_profiles
-};
-
-struct profile
-{
-  short status
-  char* name
-  char* url
-  char* ip
-};
-
-struct log
-{
-  file *file_log
+  short status;
+  char* name;
+  char* url;
+  char* ip;
+  file *flog;
 };
 
 int main(int argc, char** argv)
 {
-  //field
+
   short i,j; //incrementers
+  char c; //getc buffer
   short p; //# of users stated in profile.dat(first 2 char)
+  const char offline[]="offline";
+  const char online[]="onine";
+  const char in_game[]="in-game";
+  
+  file *fpro = fopen(filename_profile,r);
+  //my version of strcat, lol idk, what stdlib?
+  //can't test it atm, so may not work
+  char *temp=malloc(2*sizeof(char));
+  ((char*)(void*)(&temp))=getc(fpro);
+  ((char*)(void*)(&temp+sizeof(char)))=getc(fpro);
+  free(temp);
+  //my verson of atoi.
+  p=(cint(temp));
+  
+  struct *profile struct_profile[p];
+  
+  for(i=0;i<p;i++)
+  {
+    profile[i]=malloc(sizeof(struct struct_profile));
+    profile[i]->status=-1; //uninitialized
+    profile[i]->name=malloc(25*sizeof(char));
+    profile[i]->url=malloc(100*sizeof(char));
+    while(getc(fpro)!='\n'); //go to next line
+    //set name
+    j=0;
+    c=getc(fpro);
+    do
+    {
+      profile[i]->*(name+j)=c;
+      j++;
+      c=getc(fpro);
+    }while(c!='\n'));
+    //set url
+    j=0;
+    c=getc(fpro);
+    do
+    {
+      profile[i]->*(url+j)=c;
+      j++;
+      c=getc(fpro);
+    }while(c!='\n'));
+  }
   
   while(0)
   {
-    
+    for(i=0;i<p;i++)
+    {
+      get_html(char);
+      //read from stream
+    }
   }
   return 0;
 }
 
-void get_html(char* url);
+int cint(char* c)
 {
+  int i,j=0;
+  for(i=0;i<(sizeof(c)/sizeof(char));i++)
+  {
+    switch(*(c+i))
+    {
+      case 1: j=(1*i); break; 
+      case 2: j=(2*i); break;
+      case 3: j=(3*i); break;
+      case 4: j=(4*i); break;
+      case 5: j=(5*i); break;
+      case 6: j=(6*i); break;
+      case 7: j=(7*i); break;
+      case 8: j=(8*i); break;
+      case 9: j=(9*i); break;
+    }
+  }
+}
+
+void get_html(char* url)
+{
+  //write to stream
 }
 
