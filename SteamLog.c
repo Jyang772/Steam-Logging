@@ -5,6 +5,7 @@
   research:
   http://www.cs.swarthmore.edu/~newhall/unixhelp/C_files.html
   http://stackoverflow.com/questions/3481157/string-stream-in-c
+  http://www.gnu.org/software/libc/manual/html_node/Flushing-Buffers.html
   http://stackoverflow.com/questions/3382173/download-http-thru-sockets-c
 */
 
@@ -18,10 +19,17 @@ struct struct_profile
   char* name;
   char* url;
   char* ip;
-  file *flog;
+  FILE *flog;
 };
 
-int main(int argc, char** argv)
+struct struct_memStream
+{
+  char mem;
+  size_t size;
+  FILE *stream;
+};
+
+int main(int argc, char **argv)
 {
 
   short i,j; //incrementers
@@ -31,7 +39,7 @@ int main(int argc, char** argv)
   const char online[]="onine";
   const char in_game[]="in-game";
   
-  file *fpro = fopen(filename_profile,r);
+  FILE *fpro = fopen(filename_profile,r);
   //my version of strcat, lol idk, what stdlib?
   //can't test it atm, so may not work
   char *temp=malloc(2*sizeof(char));
