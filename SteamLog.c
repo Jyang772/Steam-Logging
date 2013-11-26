@@ -39,7 +39,7 @@ int main(int argc, char **argv)
   const char online[]="onine";
   const char in_game[]="in-game";
 
-  FILE *fpro = fopen(filename_profile,r);
+  FILE *fpro = fopen(filename_profile,"r");
   //my version of strcat, lol idk, what stdlib?
   //can't test it atm, so may not work
   char *temp=malloc(3*sizeof(char));
