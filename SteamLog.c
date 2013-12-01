@@ -20,8 +20,6 @@
 struct profile;
 struct struct_memStream;
 struct struct_profile;
-void vinyl_get_html(char*); //internal http-protocol
-void scratch_get_html(char*); //external curl-lib
 int cint(char*);
 int clen(char*);
 
