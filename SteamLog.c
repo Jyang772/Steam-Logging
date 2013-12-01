@@ -1,4 +1,3 @@
-#define macro_filename_profile "profiles.dat"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -47,8 +46,10 @@ int main(int argc, char **argv)
         short i,j; //incrementers
         short mode=0; //0-std,1-interactive
         char c; //getc buffer
-        short p; //# of users stated in profile.dat(first 2 char)
-        const char status[][]={"offline","online","in-game","Team Fortress 2","error"}
+        short p,t; //# of users stated in profile.dat(first 2 char),timeout
+        const char default_filename_profile[] = "profile.dat";
+        const char status[][]={"offline","online","in-game","Team Fortress 2","timeout"}
+        char *filename_profile=&default_filename_profile;
         void (*get_html)(*char)=&vinyl_get_html //use program's html-protocol
   
   
@@ -64,10 +65,22 @@ int main(int argc, char **argv)
                                 case 'i': //interactive
                                 case 's': //silent
                                 case 'j': //join game
-                                case 'o': //options: timeout,profile file
+                                case 'o': goto options;//options: timeout,profile file
                         }
                 }
         }
+        
+        goto headend;
+        options:;
+        for(i=2;i<argc;i+2)
+        {
+                switch(*(*(argv+i)+1))
+                {
+                        case 't': t=cint(*(argv+i+1)); break;
+                        case 'f': filename_profile=&(*(argv+i+1)); break;
+                }
+        }
+        headend:;
     
         FILE *fpro = fopen(filename_profile,"r");
         //my version of strcat, lol idk, what stdlib?
