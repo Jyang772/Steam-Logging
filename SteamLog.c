@@ -51,11 +51,11 @@ struct struct_memStream
 int main(int argc, char **argv)
 {
 
-
+        short mode=0;
         short i,j; //incrementers
-        short mode=0; //0-std,1-interactive
-        char c; //getc buffer
         short p,t; //# of users stated in profile.dat(first 2 char),timeout
+        char c; //getc buffer
+        short 
         const char default_filename_profile[] = "profile.dat";
         const char status[][]={"offline","online","in-game","Team Fortress 2","timeout"}
         char *filename_profile=&default_filename_profile;
@@ -70,10 +70,10 @@ int main(int argc, char **argv)
                         switch(*(*(argv+1)+i))
                         {
                                 case 'c': (*get_html)(*char)=&scratch_get_html; break; //use curl
-                                case 'l': //don't log
-                                case 'i': //interactive
-                                case 's': //silent
-                                case 'j': //join game
+                                case 'l': mode+=1; break; //don't log: 1,3,5,7,9,11,13,15
+                                case 'i': mode+=2; break; //interactive: 2,3,6,7,10,11,14,15
+                                case 's': mode+=4; break; //silent: 4,5,6,7,12,13,14,15
+                                case 'j': mode+=8; break; //join game: 8,9,10,11,12,13,14,15
                                 case 'o': goto options; //options: timeout,profile file
                         }
                 }
