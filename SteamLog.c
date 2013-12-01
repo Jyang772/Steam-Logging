@@ -20,16 +20,16 @@
 struct profile;
 struct struct_memStream;
 struct struct_profile;
-int cint(char*);
-int clen(char*);
+int cint(*char);
+int clen(*char);
 
 
 struct struct_profile
 {
         short status; //0-offline,1-online,2-in-game,3-tf2,4-error
-        char* name;
-        char* url;
-        char* ip;
+        char *name;
+        char *url;
+        char *ip;
         FILE *flog;
 };
 
@@ -56,8 +56,7 @@ int main(int argc, char **argv)
         const char compare[][]={"<div class=\"profile_in_game_header\">",
                                         "<div class=\"profile_in_game_name\">","<a href=\"steam://connect"}
         char *filename_profile=&default_filename_profile;
-        FILE **stream;
-        void (*get_html)(*char)=&vinyl_get_html //use program's html-protocol
+        void (*get_html)(*char,*FILE)=&vinyl_get_html //use program's html-protocol
   
   
         //head
@@ -143,7 +142,7 @@ int main(int argc, char **argv)
         {
                 for(i=p;i!=0;i--)
                 {
-                        (*get_html)(profile[i]->url);
+                        (*get_html)(&profile[i]->url,&memstream[i]->stream);
                         
                         //read stream
                         while(j!=430)
