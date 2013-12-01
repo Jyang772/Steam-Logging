@@ -15,13 +15,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "html.h"
+//#include "html.h"
 
 struct profile;
 struct struct_memStream;
 struct struct_profile;
-int cint(*char);
-int clen(*char);
+int cint(char*);
+int clen(char*);
 
 
 struct struct_profile
@@ -49,17 +49,28 @@ int main(int argc, char **argv)
         short i,j; //incrementers
         short p,t; //# of users stated in profile.dat(first 2 char),timeout
         char c; //getc buffer
-        short 
         const char default_filename_profile[] = "profile.dat";
-        const char status[][]={"Currently Offline","Currently Online",
-                                        "Currently In-Game","Team Fortress 2","error"}
-        const char compare[][]={"<div class=\"profile_in_game_header\">",
-                                        "<div class=\"profile_in_game_name\">","<a href=\"steam://connect"}
+        void **status; //{"Currently Offline\0","Currently Online\0","Currently In-Game\0","Team Fortress 2\0","error\0"};
+        void **compare; //{"<div class=\"profile_in_game_header\">\0","<div class=\"profile_in_game_name\">\0","<a href=\"steam://connect\0"};
         char *filename_profile=&default_filename_profile;
-        void (*get_html)(*char,*FILE)=&vinyl_get_html //use program's html-protocol
+        void (*get_html)(char*,FILE*)=&vinyl_get_html //use program's html-protocol
   
   
         //head
+	void* temp=malloc(5*25*sizeof(char));
+	**status=malloc(5*sizeof(char));
+	for(i=0;i<0;i++) *(status+i)=*(temp+i*25);
+	
+	*(status+0)=
+	*(status+1)=
+	*(status+2)=
+	*(status+3)=
+	*(status+4)=
+
+	temp=realloc(temp,3*50*sizeof(char));
+	
+	free(temp);
+
         if(argc>1 || *(*(argv+1)+0)=='-')
         {
                 for(i=1;i<slen(*(argv+1));i++)
@@ -100,10 +111,8 @@ int main(int argc, char **argv)
         p=(cint(temp));
         free(temp);
 
-
         struct struct_profile *profile[p];
         struct struct_memstream *memstream[p];
-
 
         for(i=p;i!=0;i--)
         {
