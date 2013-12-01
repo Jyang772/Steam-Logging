@@ -53,7 +53,10 @@ int main(int argc, char **argv)
         char c; //getc buffer
         short 
         const char default_filename_profile[] = "profile.dat";
-        const char status[][]={"offline","online","in-game","Team Fortress 2","timeout"}
+        const char status[][]={"Currently Offline","Currently Online",
+                                        "Currently In-Game","Team Fortress 2","error"}
+        const char compare[][]={"<div class=\"profile_in_game_header\">",
+                                        "<div class=\"profile_in_game_name\">","<a href=\"steam://connect"}
         char *filename_profile=&default_filename_profile;
         FILE **stream;
         void (*get_html)(*char)=&vinyl_get_html //use program's html-protocol
@@ -145,13 +148,17 @@ int main(int argc, char **argv)
                         (*get_html)(profile[i]->url);
                         
                         //read stream
-                        while(j!=430) //line 430
+                        while(j!=430)
                         {
                                 c=getc(memstream[i]->stream);
-                                if(c==0xa) j++;
+                                if(c=='\n') j++;
                         }
                         
-                        if()
+                        while(getc!=EOF)
+                        {
+                                if
+                        }
+                        prinf("error\n")
                         //log
                         
                         //actions
