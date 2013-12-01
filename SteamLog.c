@@ -15,11 +15,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#if defined (WINNT)
-        //path to libcurl for NT systems
-#elif (__unix__)
-        //path to libcurl for unix
-#endif
+#include "html.h"
 
 struct profile;
 struct struct_memStream;
