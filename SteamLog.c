@@ -59,6 +59,7 @@ int main(int argc, char **argv)
         const char default_filename_profile[] = "profile.dat";
         const char status[][]={"offline","online","in-game","Team Fortress 2","timeout"}
         char *filename_profile=&default_filename_profile;
+        FILE **stream;
         void (*get_html)(*char)=&vinyl_get_html //use program's html-protocol
   
   
@@ -148,7 +149,11 @@ int main(int argc, char **argv)
                         (*get_html)(profile[i]->url);
                         
                         //read stream
-                        fseek();
+                        while(j!=430) //line 430
+                        {
+                                c=getc(memstream[i]->stream);
+                                if(c==0xa) j++;
+                        }
                         
                         //log
                         
