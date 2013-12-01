@@ -16,7 +16,7 @@
 struct profile;
 struct struct_memStream;
 struct struct_profile;
-void vinyl_get_html(char*); //internal protocol
+void vinyl_get_html(char*); //internal http-protocol
 void scratch_get_html(char*); //external curl-lib
 int cint(char*);
 int clen(char*);
@@ -34,7 +34,7 @@ struct struct_profile
 
 struct struct_memStream
 {
-        char mem;
+        char *mem;
         size_t size;
         FILE *stream;
 };
@@ -111,6 +111,9 @@ int main(int argc, char **argv)
                         j++;
                         c=getc(fpro);
                 }while(c!='\n');
+                
+                memstream[i]->buffer=0x0;
+                memstream[i]->stream=open_memStream(&(memstream[i]->buffer),&(memstream[i]->size));
         }
   
 
@@ -146,7 +149,7 @@ int cint(char* c)
 {
         int i=1,j=0,k;
         
-        for(k=clen(c);k!=0;k--) i*=10;
+        for(k=clen(c);k!=0;k--) i*=0xa;
         for(i=i;i!=0;i/10)
         {
                 switch(*(c+i))
