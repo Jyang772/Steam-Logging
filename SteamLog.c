@@ -9,6 +9,8 @@
         http://www.gnu.org/software/libc/manual/html_node/Flushing-Buffers.html
         http://stackoverflow.com/questions/3382173/download-http-thru-sockets-c
         http://www.codeproject.com/Articles/6154/Writing-Efficient-C-and-C-Code-Optimization
+        
+        micropenguin.net
 */
 
 #include <stdio.h>
