@@ -170,16 +170,7 @@ int main(int argc, char **argv)
 }
 
 
-void vinyl_get_html(char* url)
-{
-        //write to stream
-}
 
-
-void scratch_get_html(char* url)
-{
-        //write to stream
-}
 
 
 int cint(char* c)
