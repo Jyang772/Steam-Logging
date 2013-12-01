@@ -153,12 +153,27 @@ int main(int argc, char **argv)
                                 c=getc(memstream[i]->stream);
                                 if(c=='\n') j++;
                         }
-                        
-                        while(getc!=EOF)
+                        j=0;
+                        c=getc(memstream[i]->stream);
+                        while(c!=EOF)
                         {
-                                if
+                                if(c==compare[0][j]) 
+                                {
+                                        j++;
+                                        if(compare[0][j]==0x0) goto gud;
+                                }
+                                else j=0;
+                                c=getc(memstream[i]->stream);
                         }
-                        prinf("error\n")
+                        printf("error could not find %s\n",compare[0]);
+                        gud:;
+                        c=getc(memstream[i]->stream);
+                        while(c!="<")
+                        {
+                                
+                                if()
+                                c=getc(memstream[i]->stream);
+                        }
                         //log
                         
                         //actions
