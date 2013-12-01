@@ -151,6 +151,7 @@ int main(int argc, char **argv)
                                 if(c==0xa) j++;
                         }
                         
+                        if()
                         //log
                         
                         //actions
