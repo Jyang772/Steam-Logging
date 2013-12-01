@@ -1,3 +1,6 @@
+#include <curl/curl.h>      //This has external dependencies. 
+
+
 #if defined (WINNT)
         //path to libcurl for NT systems
 #elif (__unix__)
