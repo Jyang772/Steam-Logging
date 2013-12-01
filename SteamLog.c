@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-
 /*
+        must be compatible with:
+                Visual Studio,
+                GCC
+                
         research:
         http://www.cs.swarthmore.edu/~newhall/unixhelp/C_files.html
         http://stackoverflow.com/questions/3481157/string-stream-in-c
@@ -11,6 +11,13 @@
         http://www.codeproject.com/Articles/6154/Writing-Efficient-C-and-C-Code-Optimization
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+#if defined (WINNT)
+        //path to libcurl for NT systems
+#elif (__unix__)
+        //path to libcurl for unix
+#endif
 
 struct profile;
 struct struct_memStream;
@@ -65,7 +72,7 @@ int main(int argc, char **argv)
                                 case 'i': //interactive
                                 case 's': //silent
                                 case 'j': //join game
-                                case 'o': goto options;//options: timeout,profile file
+                                case 'o': goto options; //options: timeout,profile file
                         }
                 }
         }
@@ -138,7 +145,17 @@ int main(int argc, char **argv)
                 {
                         (*get_html)(profile[i]->url);
                         
+                        //read stream
                         fseek();
+                        
+                        //log
+                        
+                        //actions
+                        #if define (WINNT)
+                        //windows
+                        #elif define (__unix__)
+                        //unix
+                        #endif
                 }
         }
   
