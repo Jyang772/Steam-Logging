@@ -1,4 +1,4 @@
-#define filename_profile "profiles.dat"
+#define macro_filename_profile "profiles.dat"
 #include <stdio.h>
 #include <stdlib.h>
 
