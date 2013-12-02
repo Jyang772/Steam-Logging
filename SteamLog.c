@@ -3,7 +3,7 @@
                 Visual Studio,
                 GCC
                 
-        research:
+	research
         http://www.cs.swarthmore.edu/~newhall/unixhelp/C_files.html
         http://stackoverflow.com/questions/3481157/string-stream-in-c
         http://www.gnu.org/software/libc/manual/html_node/Flushing-Buffers.html
@@ -36,7 +36,7 @@ struct struct_profile
 
 struct struct_memStream
 {
-        char *mem;
+        char *buffer;
         size_t size;
         FILE *stream;
 };
@@ -49,35 +49,32 @@ int main(int argc, char **argv)
         short i,j; //incrementers
         short p,t; //# of users stated in profile.dat(first 2 char),timeout
         char c; //getc buffer
-        const char default_filename_profile[] = "profile.dat";
+        const char default_filename_profile[]="profile.dat\n";
         void **status; //{"Currently Offline\0","Currently Online\0","Currently In-Game\0","Team Fortress 2\0","error\0"};
-        void **compare; //{"<div class=\"profile_in_game_header\">\0","<div class=\"profile_in_game_name\">\0","<a href=\"steam://connect\0"};
-        char *filename_profile=&default_filename_profile;
-        void (*get_html)(char*,FILE*)=&vinyl_get_html //use program's html-protocol
-  
-  
-        //head
-	void* temp=malloc(5*25*sizeof(char));
-	**status=malloc(5*sizeof(char));
-	for(i=0;i<0;i++) *(status+i)=*(temp+i*25);
+        char **compare; //{"<div class=\"profile_in_game_header\">\0","<div class=\"profile_in_game_name\">\0","<a href=\"steam://connect\0"};
+        char *filename_profile;
+        void (*get_html)(char*,FILE*)=&vinyl_get_html; //use program's html-protocol
+
+	//head
+	*(filename_profile+0)=(char)(&default_filename_profile[0]);
+	status=malloc(25*5*sizeof(char));
+	for(i=0;i<5;i++) *(status+i)=&status+i*25;
 	
+/*
 	*(status+0)=
 	*(status+1)=
 	*(status+2)=
 	*(status+3)=
 	*(status+4)=
-
-	temp=realloc(temp,3*50*sizeof(char));
-	
-	free(temp);
+*/
 
         if(argc>1 || *(*(argv+1)+0)=='-')
         {
-                for(i=1;i<slen(*(argv+1));i++)
+                for(i=1;i<clen(*(argv+1));i++)
                 {
                         switch(*(*(argv+1)+i))
                         {
-                                case 'c': (*get_html)(*char)=&scratch_get_html; break; //use curl
+                                case 'c': (*get_html)(char*)=&scratch_get_html; break; //use curl
                                 case 'l': mode+=1; break; //don't log: 1,3,5,7,9,11,13,15
                                 case 'i': mode+=2; break; //interactive: 2,3,6,7,10,11,14,15
                                 case 's': mode+=4; break; //silent: 4,5,6,7,12,13,14,15
@@ -89,12 +86,12 @@ int main(int argc, char **argv)
         
         goto headend;
         options:;
-        for(i=2;i<argc;i+2)
+        for(i=2;i<argc;i+=2)
         {
                 switch(*(*(argv+i)+1))
                 {
                         case 't': t=cint(*(argv+i+1)); break;
-                        case 'f': filename_profile=&(*(argv+i+1)); break;
+                        case 'f': filename_profile=&*(*(argv+i+1)); break;
                 }
         }
         headend:;
@@ -102,17 +99,16 @@ int main(int argc, char **argv)
         FILE *fpro = fopen(filename_profile,"r");
         //my version of strcat, lol idk, what stdlib?
         //can't test it atm, so may not work
-        void *temp;
-        temp=malloc(3*sizeof(char));
-        *(&temp+(0*sizeof(char)))=getc(fpro);
-        *(&temp+(1*sizeof(char)))=getc(fpro); //using as value (char*)*((&temp)+1*sizeof(char));
-        *(&temp+(2*sizeof(char)))=0x0;
+	void *tmp=malloc(3*sizeof(char));
+        *(&tmp+(0*sizeof(char)))=getc(fpro);
+        *(&tmp+(1*sizeof(char)))=getc(fpro); //using as value (char*)*((&tmp)+1*sizeof(char));
+        *(&tmp+(2*sizeof(char)))=0x0;
         //my verson of atoi.
-        p=(cint(temp));
-        free(temp);
+        p=(cint(tmp));
+        free(tmp);
 
         struct struct_profile *profile[p];
-        struct struct_memstream *memstream[p];
+        struct struct_memStream *memstream[p];
 
         for(i=p;i!=0;i--)
         {
@@ -140,6 +136,7 @@ int main(int argc, char **argv)
                         c=getc(fpro);
                 }while(c!='\n');
                 
+		memstream[i]=malloc(sizeof(struct struct_memStream));
                 memstream[i]->buffer=0x0;
                 memstream[i]->stream=open_memStream(&(memstream[i]->buffer),&(memstream[i]->size));
         }
@@ -203,7 +200,7 @@ int cint(char* c)
         int i=1,j=0,k;
         
         for(k=clen(c);k!=0;k--) i*=0xa;
-        for(i=i;i!=0;i/10)
+        for(i=i;i!=0;i/=10)
         {
                 switch(*(c+i))
                 {
