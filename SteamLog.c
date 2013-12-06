@@ -50,6 +50,12 @@ int main(int argc, char **argv)
         short p,t; //# of users stated in profile.dat(first 2 char),timeout
         char c; //getc buffer
         const char default_filename_profile[]="profile.dat\n";
+	void arr_status[]={
+			'C','u','r','r','e','n','t','l','y',0x20,'O','f','f','l','i','n','e',0x0,
+			'C','u','r','r','e','n','t','l','y',0x20,'O','n','l','i','n','e',0x0,
+			'C','u','r','r','e','n','t','l','y',0x20,'I','n','-','G','a','m','e',0x0,
+			'T','e','a','m',0x20,'F','o','r','t','r','e','s','s',0x20,'2',0x0,
+			'e','r','r','o','r',0x0};
         void **status; //{"Currently Offline\0","Currently Online\0","Currently In-Game\0","Team Fortress 2\0","error\0"};
         char **compare; //{"<div class=\"profile_in_game_header\">\0","<div class=\"profile_in_game_name\">\0","<a href=\"steam://connect\0"};
         char *filename_profile;
@@ -57,16 +63,17 @@ int main(int argc, char **argv)
 
 	//head
 	*(filename_profile+0)=(char)(&default_filename_profile[0]);
-	status=malloc(25*5*sizeof(char));
-	for(i=0;i<5;i++) *(status+i)=&status+i*25;
+	status=malloc(5*sizeof(char));
 	
-/*
-	*(status+0)=
-	*(status+1)=
-	*(status+2)=
-	*(status+3)=
-	*(status+4)=
-*/
+	j=0;
+	for(i=0;i<5;i++)
+	{
+		do
+		{
+			j++;
+		while(arr_status[j]!=0x0);
+		*(status+i)=arr_status[j];
+	}
 
         if(argc>1 || *(*(argv+1)+0)=='-')
         {
