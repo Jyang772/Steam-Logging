@@ -13,6 +13,7 @@
         micropenguin.net
 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 //#include "html.h"
@@ -50,14 +51,14 @@ int main(int argc, char **argv)
         short p,t; //# of users stated in profile.dat(first 2 char),timeout
         char c; //getc buffer
         const char default_filename_profile[]="profile.dat\n";
-	void arr_status[]={
+	char arr_status[]={
 			'C','u','r','r','e','n','t','l','y',0x20,'O','f','f','l','i','n','e',0x0,
 			'C','u','r','r','e','n','t','l','y',0x20,'O','n','l','i','n','e',0x0,
 			'C','u','r','r','e','n','t','l','y',0x20,'I','n','-','G','a','m','e',0x0,
 			'T','e','a','m',0x20,'F','o','r','t','r','e','s','s',0x20,'2',0x0,
 			'e','r','r','o','r',0x0};
-        void **status; //{"Currently Offline\0","Currently Online\0","Currently In-Game\0","Team Fortress 2\0","error\0"};
-        char **compare; //{"<div class=\"profile_in_game_header\">\0","<div class=\"profile_in_game_name\">\0","<a href=\"steam://connect\0"};
+        char **status; //{"Currently Offline\0","Currently Online\0","Currently In-Game\0","Team Fortress 2\0","error\0"};
+        char compare[3][40]={"<div class=\"profile_in_game_header\">\0","<div class=\"profile_in_game_name\">\0","<a href=\"steam://connect\0"};
         char *filename_profile;
         void (*get_html)(char*,FILE*)=&vinyl_get_html; //use program's html-protocol
 
@@ -71,8 +72,9 @@ int main(int argc, char **argv)
 		do
 		{
 			j++;
-		while(arr_status[j]!=0x0);
-		*(status+i)=arr_status[j];
+		}while(arr_status[j]!=0x0);
+		j++;
+		*(status+i)=&arr_status[j];
 	}
 
         if(argc>1 || *(*(argv+1)+0)=='-')
@@ -81,9 +83,9 @@ int main(int argc, char **argv)
                 {
                         switch(*(*(argv+1)+i))
                         {
-                                case 'c': (*get_html)(char*)=&scratch_get_html; break; //use curl
-                                case 'l': mode+=1; break; //don't log: 1,3,5,7,9,11,13,15
-                                case 'i': mode+=2; break; //interactive: 2,3,6,7,10,11,14,15
+				case 'c': (*get_html)(char*)=&scratch_get_html; break; //use curl
+				case 'l': mode+=1; break; //don't log: 1,3,5,7,9,11,13,15
+				case 'i': mode+=2; break; //interactive: 2,3,6,7,10,11,14,15
                                 case 's': mode+=4; break; //silent: 4,5,6,7,12,13,14,15
                                 case 'j': mode+=8; break; //join game: 8,9,10,11,12,13,14,15
                                 case 'o': goto options; //options: timeout,profile file
@@ -104,13 +106,10 @@ int main(int argc, char **argv)
         headend:;
     
         FILE *fpro = fopen(filename_profile,"r");
-        //my version of strcat, lol idk, what stdlib?
-        //can't test it atm, so may not work
 	void *tmp=malloc(3*sizeof(char));
         *(&tmp+(0*sizeof(char)))=getc(fpro);
-        *(&tmp+(1*sizeof(char)))=getc(fpro); //using as value (char*)*((&tmp)+1*sizeof(char));
+        *(&tmp+(1*sizeof(char)))=getc(fpro); //to use as value: (char*)*((&tmp)+1*sizeof(char));
         *(&tmp+(2*sizeof(char)))=0x0;
-        //my verson of atoi.
         p=(cint(tmp));
         free(tmp);
 
@@ -181,15 +180,15 @@ int main(int argc, char **argv)
                         while(c!="<")
                         {
                                 
-                                if()
+                                //if()
                                 c=getc(memstream[i]->stream);
                         }
                         //log
                         
                         //actions
-                        #if define (WINNT)
+                        #if defined (WIN32)
                         //windows
-                        #elif define (__unix__)
+                        #elif defined (__unix__)
                         //unix
                         #endif
                 }

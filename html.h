@@ -1,22 +1,22 @@
 #include <curl/curl.h>      //This has external dependencies. 
 
-#if defined (WINNT)
-        //path to libcurl for NT systems
-#elif (__unix__)
-        //path to libcurl for unix
+#if defined (i_WIN32)
+        //windows specific
+#elif defined (__unix__)
+        //unix specific
 #endif
 
 void vinyl_get_html(char*,FILE*); //internal http-protocol
 void scratch_get_html(char*,FILE*); //external curl-lib
 
 
+extern "C++"
+{
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
         ((std::string*)userp)->append((char*)contents, size * nmemb);
         return size * nmemb;
 }
-
-
 
 void Curl_Get(string)
 {
@@ -83,7 +83,7 @@ void Curl_Get(string)
         }
 
 }
-
+}
 
 
 void vinyl_get_html(char *url,FILE *stream)
