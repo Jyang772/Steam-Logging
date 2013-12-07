@@ -9,9 +9,10 @@
 void vinyl_get_html(char*,FILE*); //internal http-protocol
 void scratch_get_html(char*,FILE*); //external curl-lib
 
-
+#if defined "C"
 extern "C++"
 {
+#endif
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
         ((std::string*)userp)->append((char*)contents, size * nmemb);
@@ -83,8 +84,9 @@ void Curl_Get(string)
         }
 
 }
+#if defined "C"
 }
-
+#endif
 
 void vinyl_get_html(char *url,FILE *stream)
 {
